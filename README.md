@@ -1,2 +1,2 @@
-# urban-farming
-An Arduino moisture sensing setup with private cloud connectivity.
+# Arduino Moisture Sensing for the Private Cloud
+An Arduino moisture sensing setup with Private Cloud connectivity.
