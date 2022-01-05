@@ -1,6 +1,6 @@
-const httpService = require("http");
+const http = require("http");
 const url = require("url");
-const validator = require("validator");
+const nodemailer = require("nodemailer");
 
 let moisture = 0.0;
 let time = "";
@@ -11,10 +11,30 @@ const portNo = 8000;
 const requListen = (requ, resp) => {
   const urlObj = url.parse(requ.url, true).query;
   if(urlObj.moisture && urlObj.time) {
-    moisture = validator.escape(urlObj.moisture);
+    moisture = Number(urlObj.moisture);
     time = new Date().toISOString().slice(0, 10);
     resp.writeHead(200);
     resp.end();
+    if(moisture < 15.0) {
+      let transport = nodemailer.createTransport({
+        service: "mailservice",
+        auth: {
+          user: "mailaddress",
+          pass: "password"
+        }
+      });
+
+      let mailOpt = {
+        from: "mailaddress",
+        to: "mailaddress",
+        subject: "Your plant needs water",
+        text: "The moisture of the plant is at " + moisture + " %."
+      };
+
+      transport.sendMail(mailOpt, (err, message) => {
+        // do nothing
+      });
+    }
   } else {
     resp.writeHead(200);
     let html = "<html><head>\r\n";
@@ -53,5 +73,5 @@ const requListen = (requ, resp) => {
   }
 };
 
-const myServer = httpService.createServer(requListen);
-myServer.listen(portNo, hostAddress, () => { console.log("Server running"); });
+const moistureServer = http.createServer(requListen);
+moistureServer.listen(portNo, hostAddress, () => { console.log("Server running"); });
