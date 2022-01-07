@@ -10,7 +10,7 @@ const portNo = 8000;
 
 const requListen = (requ, resp) => {
   const urlObj = url.parse(requ.url, true).query;
-  if(urlObj.moisture && urlObj.time) {
+  if(urlObj.moisture) {
     moisture = Number(urlObj.moisture);
     time = new Date().toISOString().slice(0, 10);
     resp.writeHead(200);
