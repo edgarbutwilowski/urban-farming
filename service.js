@@ -17,10 +17,15 @@ const requListen = (requ, resp) => {
     resp.end();
     if(moisture < 15.0) {
       let transport = nodemailer.createTransport({
-        service: "mailservice",
+        host: "smtp.mailserver.com",
+        secureConnection: false,
+        port: 587,
         auth: {
           user: "mailaddress",
           pass: "password"
+        },
+        tls: {
+          ciphers: 'SSLv3'
         }
       });
 
