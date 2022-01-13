@@ -15,7 +15,7 @@ const requListen = (requ, resp) => {
     time = new Date().toISOString().slice(0, 10);
     resp.writeHead(200);
     resp.end();
-    if(moisture < 15.0) {
+    if(moisture < 25.0) {
       let transport = nodemailer.createTransport({
         host: "smtp.mailserver.com",
         secureConnection: false,
