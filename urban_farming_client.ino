@@ -16,6 +16,9 @@ void setup() {
 
 }
 
+// defince a function to reset arduino:
+void (* resetArduino) (void) = 0;
+
 void loop() {
 
   char serviceAddress[] = "684.236.0.506";
@@ -44,10 +47,15 @@ void loop() {
     wifiClient.println("Connection: close");
     wifiClient.println();
     wifiClient.flush();
+    wifiClient.stop();
 
     delay(43200000); // wait half a day
     // delay in milliseconds:
     // 43'200'000 ms = 12 hours * 60 min * 60 sec * 1000 ms
+
+    resetArduino();
+    // it is necessary to reset arduino each
+    // pass, else it will hang
 
   }
 
