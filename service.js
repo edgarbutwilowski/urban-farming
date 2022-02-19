@@ -46,7 +46,7 @@ const requListen = (requ, resp) => {
     html += "<script src=\"https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js\"></script>\r\n"
     html += "</head><body>\r\n";
     html += "<h1>Urban Farming Project</h1>\r\n";
-    html += "<p>Moisture: " + moisture + " %; Last Transmission Time: " + time + "</p>\r\n";
+    html += "<p>Moisture: " + moisture + " %; Last Transmission Date: " + time + "</p>\r\n";
     html += "<div style=\"width: 50%;\">\r\n";
     html += "<canvas id=\"gardenChart\"></canvas>\r\n";
     html += "</div>\r\n";

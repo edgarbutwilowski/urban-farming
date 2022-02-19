@@ -3,16 +3,10 @@
 // globally declare WiFi object:
 WiFiClient wifiClient;
 
-int wifiStatus;
-
-char serviceAddress[] = "684.236.0.506";
-
-bool hasConnection = false;
-
 void setup() {
 
   // predefine WiFi status as idle:
-  wifiStatus = WL_IDLE_STATUS;
+  int wifiStatus = WL_IDLE_STATUS;
   // (re)try to establish over the air connection:
   while (wifiStatus != WL_CONNECTED) {
     // provide here SSID and passphrase of WiFi:
@@ -24,19 +18,19 @@ void setup() {
 
 void loop() {
 
-  while (wifiClient.connect(serviceAddress, 8000)) {
+  char serviceAddress[] = "684.236.0.506";
+  if (wifiClient.connect(serviceAddress, 8000)) {
     // we have a connection:
     int sensorPin = A0;
     int moisture0To1023 = analogRead(sensorPin);
-    int moistureValue = map(moisture0To1023, 0, 1023, 100, 0);
+    int moisturePercentage = map(moisture0To1023, 0, 1023, 100, 0);
 
-    char moistureString[] = "000";
-
-    itoa(moistureValue, moistureString, 10);
+    char moisturePercString[] = "000";
+    itoa(moisturePercentage, moisturePercString, 10);
 
     // create URL query part string:
     char queryUrl[] = "GET /?moisture=";
-    strcat(queryUrl, moistureString);
+    strcat(queryUrl, moisturePercString);
     strcat(queryUrl, " HTTP/1.1");
 
     // print URL query part to WiFi client:
